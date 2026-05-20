@@ -115,21 +115,30 @@ sudo ./elastic-agent install \
 Attack:  hydra / failed login attempts → Event ID 4625
 Alert:   5+ failed logins from same IP in 1 minute
 MITRE:   T1110
+
+<img width="868" height="361" alt="Failed Logon on Windows Server" src="https://github.com/user-attachments/assets/b99e4365-d882-4950-90d7-f05dcada8bfe" />
+
 ```
 
-### 2. PowerShell Suspicious Execution
+### 2. SSH Brute Force on VPS ✅ (Real Attack Detected)
 ```
-Attack:  powershell -WindowStyle Hidden -EncodedCommand ...
-Alert:   PowerShell with DownloadString / IEX / Bypass
-MITRE:   T1059.001
-```
+Attack:  Real SSH brute force from IP: 102.47.78.221
+Alert:   High severity — 2 alerts triggered
+Host:    Contabo VPS
+Date:    May 18, 2026
+MITRE:   T1110.004 (Brute Force: Credential Stuffing)
+<img width="846" height="336" alt="SSH Brute Force Alert" src="https://github.com/user-attachments/assets/ce84dbe2-f141-49cd-8e0b-0707b15af385" />
 
-### 3. New Admin User Created
+
 ```
-Attack:  New-ADUser + Add-ADGroupMember "Domain Admins"
-Alert:   Event ID 4720 + 4728
-MITRE:   T1136.002
-```
+### 3. SQL Injection Attempt
+
+Attack:  SQL Injection Attempt on OWASP Juice Shop
+Alert:   High severity — 2 alerts triggered
+Host:    ubuntu-dmz
+MITRE:   T1190 (Exploit Public-Facing Application)
+ <img width="831" height="350" alt="SQL Injection Alert" src="https://github.com/user-attachments/assets/fdf7f1dd-18f3-46bd-8a2e-ba2209b5f8e6" />
+
 
 ---
 
