@@ -203,7 +203,223 @@ Integrated-Mini--Soc/
     ├── fleet-agents-healthy.png
     └── kibana-dashboard.png
 ```
+# 🚀 ELK Stack Deployment on Ubuntu VPS
 
+> Deployed on **Contabo VPS** — Ubuntu 22.04 LTS | 12GB RAM | 200GB Storage
+
+---
+
+## 📋 Prerequisites
+
+```bash
+# Update system
+sudo apt update && sudo apt upgrade -y
+
+# Set vm.max_map_count (required for Elasticsearch)
+sudo sysctl -w vm.max_map_count=262144
+echo "vm.max_map_count=262144" | sudo tee -a /etc/sysctl.conf
+```
+
+---
+
+## 1️⃣ Install Elasticsearch
+
+```bash
+# Add GPG Key
+wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | \
+  sudo gpg --dearmor -o /usr/share/keyrings/elasticsearch-keyring.gpg
+
+# Add Repository
+echo "deb [signed-by=/usr/share/keyrings/elasticsearch-keyring.gpg] \
+  https://artifacts.elastic.co/packages/8.x/apt stable main" | \
+  sudo tee /etc/apt/sources.list.d/elastic-8.x.list
+
+# Install
+sudo apt update && sudo apt install elasticsearch -y
+```
+
+### JVM Heap Tuning (Critical for 12GB RAM)
+
+```bash
+sudo nano /etc/elasticsearch/jvm.options.d/memory.options
+```
+
+```
+-Xms4g
+-Xmx4g
+```
+
+### Start & Enable
+
+```bash
+sudo systemctl enable elasticsearch --now
+sudo systemctl status elasticsearch
+```
+
+### Reset Admin Password
+
+```bash
+sudo /usr/share/elasticsearch/bin/elasticsearch-reset-password -u elastic
+```
+
+### Test Connection
+
+```bash
+curl -u elastic -k https://localhost:9200
+```
+
+---
+
+## 2️⃣ Install Kibana
+
+```bash
+# Install
+sudo apt install kibana -y
+
+# Generate Enrollment Token
+sudo /usr/share/elasticsearch/bin/elasticsearch-create-enrollment-token -s kibana
+
+# Start & Enable
+sudo systemctl enable kibana --now
+sudo systemctl status kibana
+```
+
+### Access Dashboard
+
+```
+https://YOUR_VPS_IP:5601
+Username: elastic
+Password: (generated above)
+```
+
+---
+
+## 3️⃣ SSL/TLS Certificate Generation
+
+```bash
+# Generate Certificate Authority (CA)
+sudo /usr/share/elasticsearch/bin/elasticsearch-certutil ca --pem
+
+# Generate Fleet Server Certificate
+sudo /usr/share/elasticsearch/bin/elasticsearch-certutil cert \
+  --name fleet-server \
+  --ca-cert ca/ca.crt \
+  --ca-key ca/ca.key \
+  --pem \
+  --dns YOUR_VPS_IP \
+  --ip YOUR_VPS_IP
+
+# Copy certificates
+sudo mkdir -p /etc/kibana/certs
+sudo cp fleet-server.crt fleet-server.key ca/ca.crt /etc/kibana/certs/
+```
+
+---
+
+## 4️⃣ Fleet Server Setup
+
+```bash
+# Download Elastic Agent
+curl -L -O https://artifacts.elastic.co/downloads/beats/elastic-agent/elastic-agent-8.19.15-linux-x86_64.tar.gz
+tar xzvf elastic-agent-8.19.15-linux-x86_64.tar.gz
+cd elastic-agent-8.19.15-linux-x86_64
+
+# Enroll Fleet Server
+sudo elastic-agent enroll \
+  --url=https://YOUR_VPS_IP:8220 \
+  --fleet-server-es=https://localhost:9200 \
+  --fleet-server-es-ca-trusted-fingerprint=YOUR_FINGERPRINT \
+  --fleet-server-service-token=YOUR_TOKEN \
+  --fleet-server-policy=fleet-server-policy \
+  --fleet-server-es-insecure \
+  --insecure \
+  --fleet-server-timeout=10m
+```
+
+---
+
+## 5️⃣ Install Elastic Agent on Endpoints
+
+### Windows
+
+```powershell
+$ProgressPreference = 'SilentlyContinue'
+Invoke-WebRequest -Uri https://artifacts.elastic.co/downloads/beats/elastic-agent/elastic-agent-8.19.15-windows-x86_64.zip `
+  -OutFile elastic-agent-8.19.15-windows-x86_64.zip
+Expand-Archive .\elastic-agent-8.19.15-windows-x86_64.zip -DestinationPath .
+cd elastic-agent-8.19.15-windows-x86_64
+.\elastic-agent.exe install `
+  --url=https://YOUR_VPS_IP:8220 `
+  --enrollment-token=YOUR_TOKEN
+```
+
+### Linux (Ubuntu)
+
+```bash
+curl -L -O https://artifacts.elastic.co/downloads/beats/elastic-agent/elastic-agent-8.19.15-linux-x86_64.tar.gz
+tar xzvf elastic-agent-8.19.15-linux-x86_64.tar.gz
+cd elastic-agent-8.19.15-linux-x86_64
+sudo ./elastic-agent install \
+  --url=https://YOUR_VPS_IP:8220 \
+  --enrollment-token=YOUR_TOKEN
+```
+
+---
+
+## 6️⃣ Verify Healthy Enrollment
+
+```
+Kibana → Management → Fleet → Agents
+```
+
+All agents should show **Healthy** status ✅
+
+---
+
+## 🔧 Troubleshooting
+
+### Access Denied — service_tokens
+
+```bash
+sudo chown elasticsearch:elasticsearch /etc/elasticsearch/service_tokens
+sudo chmod 660 /etc/elasticsearch/service_tokens
+sudo systemctl restart elasticsearch
+```
+
+### Elasticsearch Not Starting
+
+```bash
+# Check logs
+sudo journalctl -u elasticsearch -f
+
+# Verify JVM heap
+cat /etc/elasticsearch/jvm.options.d/memory.options
+
+# Check memory
+free -h
+```
+
+### Agent Not Connecting to Fleet
+
+```bash
+# Re-enroll agent
+sudo elastic-agent unenroll
+sudo elastic-agent enroll \
+  --url=https://YOUR_VPS_IP:8220 \
+  --enrollment-token=NEW_TOKEN \
+  --insecure
+sudo systemctl restart elastic-agent
+```
+
+### Check Agent Status
+
+```bash
+# Linux
+sudo systemctl status elastic-agent
+
+# Windows (PowerShell)
+Get-Service elastic-agent
+```
 ---
 
 ## 📊 Results
