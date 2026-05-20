@@ -111,26 +111,24 @@ sudo ./elastic-agent install \
 ## 🚨 Use Cases & Simulations
 
 ### 1. Brute Force Detection
-```
+
 Attack:  hydra / failed login attempts → Event ID 4625
 Alert:   5+ failed logins from same IP in 1 minute
 MITRE:   T1110
 
-<img width="868" height="361" alt="Failed Logon on Windows Server" src="https://github.com/user-attachments/assets/b99e4365-d882-4950-90d7-f05dcada8bfe" />
+<img width="700"  alt="Failed Logon on Windows Server" src="https://github.com/user-attachments/assets/b99e4365-d882-4950-90d7-f05dcada8bfe" />
 
-```
-
+---
 ### 2. SSH Brute Force on VPS ✅ (Real Attack Detected)
-```
 Attack:  Real SSH brute force from IP: 102.47.78.221
 Alert:   High severity — 2 alerts triggered
 Host:    Contabo VPS
 Date:    May 18, 2026
 MITRE:   T1110.004 (Brute Force: Credential Stuffing)
-<img width="846" height="336" alt="SSH Brute Force Alert" src="https://github.com/user-attachments/assets/ce84dbe2-f141-49cd-8e0b-0707b15af385" />
 
+<img width="846" height="336" alt="SSH Brute Force Alert" src="https://github.com/user-attachments/assets/dba60bec-5d26-479d-b274-d0b63d5d217c" />
 
-```
+---
 ### 3. SQL Injection Attempt
 
 Attack:  SQL Injection Attempt on OWASP Juice Shop
