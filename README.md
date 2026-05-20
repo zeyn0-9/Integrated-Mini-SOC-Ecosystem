@@ -236,6 +236,9 @@ echo "deb [signed-by=/usr/share/keyrings/elasticsearch-keyring.gpg] \
 
 # Install
 sudo apt update && sudo apt install elasticsearch -y
+
+<img width="477" height="108" alt="image" src="https://github.com/user-attachments/assets/c1d7f70f-4ed5-422a-ad55-80d04e3093ab" />
+
 ```
 
 ### JVM Heap Tuning (Critical for 12GB RAM)
@@ -254,6 +257,8 @@ sudo nano /etc/elasticsearch/jvm.options.d/memory.options
 ```bash
 sudo systemctl enable elasticsearch --now
 sudo systemctl status elasticsearch
+<img width="624" height="186" alt="image" src="https://github.com/user-attachments/assets/18ec29f0-8be6-448e-806f-6862b7e8c523" />
+
 ```
 
 ### Reset Admin Password
@@ -275,12 +280,17 @@ curl -u elastic -k https://localhost:9200
 ```bash
 # Install
 sudo apt install kibana -y
+<img width="624" height="288" alt="image" src="https://github.com/user-attachments/assets/f0cf7513-b136-4fb7-852c-45559640927c" />
 
 # Generate Enrollment Token
 sudo /usr/share/elasticsearch/bin/elasticsearch-create-enrollment-token -s kibana
+<img width="624" height="44" alt="image" src="https://github.com/user-attachments/assets/5c81feba-0e58-4b63-83bf-a3d3077e9612" />
+
 
 # Start & Enable
 sudo systemctl enable kibana --now
+<img width="624" height="40" alt="image" src="https://github.com/user-attachments/assets/9d8e0ca1-cc1d-43d9-8cd3-69570b8a254a" />
+
 sudo systemctl status kibana
 ```
 
@@ -299,6 +309,11 @@ Password: (generated above)
 ```bash
 # Generate Certificate Authority (CA)
 sudo /usr/share/elasticsearch/bin/elasticsearch-certutil ca --pem
+<img width="624" height="231" alt="image" src="https://github.com/user-attachments/assets/9941e6cd-f6d4-4017-a21a-56ff54d16d9e" />
+
+<img width="624" height="240" alt="image" src="https://github.com/user-attachments/assets/4418868f-bd71-4dd7-b296-c8b1022a8aa0" />
+
+<img width="624" height="84" alt="image" src="https://github.com/user-attachments/assets/3f720a22-6aca-42ce-a836-ca3390a75964" />
 
 # Generate Fleet Server Certificate
 sudo /usr/share/elasticsearch/bin/elasticsearch-certutil cert \
@@ -323,6 +338,8 @@ sudo cp fleet-server.crt fleet-server.key ca/ca.crt /etc/kibana/certs/
 curl -L -O https://artifacts.elastic.co/downloads/beats/elastic-agent/elastic-agent-8.19.15-linux-x86_64.tar.gz
 tar xzvf elastic-agent-8.19.15-linux-x86_64.tar.gz
 cd elastic-agent-8.19.15-linux-x86_64
+<img width="624" height="123" alt="image" src="https://github.com/user-attachments/assets/4cf2ca49-53e5-4a87-bd1a-210551beceb3" />
+
 
 # Enroll Fleet Server
 sudo elastic-agent enroll \
@@ -334,6 +351,12 @@ sudo elastic-agent enroll \
   --fleet-server-es-insecure \
   --insecure \
   --fleet-server-timeout=10m
+
+<img width="624" height="195" alt="image" src="https://github.com/user-attachments/assets/aac52c39-f28a-4b34-8d22-10b9ba9a79bb" />
+
+<img width="506" height="345" alt="image" src="https://github.com/user-attachments/assets/b6cf2a2f-f8ae-4d40-8f42-4444e398ed3f" />
+
+
 ```
 
 ---
@@ -351,6 +374,9 @@ cd elastic-agent-8.19.15-windows-x86_64
 .\elastic-agent.exe install `
   --url=https://YOUR_VPS_IP:8220 `
   --enrollment-token=YOUR_TOKEN
+<img width="664" height="222" alt="image" src="https://github.com/user-attachments/assets/b87ef82c-97b2-412c-bd02-5c2fcbd15620" />
+
+
 ```
 
 ### Linux (Ubuntu)
@@ -362,6 +388,9 @@ cd elastic-agent-8.19.15-linux-x86_64
 sudo ./elastic-agent install \
   --url=https://YOUR_VPS_IP:8220 \
   --enrollment-token=YOUR_TOKEN
+<img width="672" height="145" alt="image" src="https://github.com/user-attachments/assets/8fcfe5a4-3ad6-4922-b0cc-efa9b212c804" />
+
+
 ```
 
 ---
@@ -370,6 +399,10 @@ sudo ./elastic-agent install \
 
 ```
 Kibana → Management → Fleet → Agents
+
+<img width="636" height="279" alt="image" src="https://github.com/user-attachments/assets/8d68f79d-20ed-48f1-8ace-12737b7856e2" />
+
+
 ```
 
 All agents should show **Healthy** status ✅
