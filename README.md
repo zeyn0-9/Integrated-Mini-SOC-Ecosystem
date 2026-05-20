@@ -1,6 +1,18 @@
 # 🛡️ Integrated Mini-SOC Ecosystem
 ### Digital Egypt Pioneers Initiative (DEPI) — Round 4
+## 📖 Table of Contents
+- [Project Overview](#-project-overview)
+- [Team](#-team--cai4_iss6_g1)
+- [Architecture](#️-architecture)
+- [Technology Stack](#️-technology-stack)
+- [Detection Coverage](#-detection-coverage-mitre-attck)
+- [ELK Deployment](#-elk-stack-deployment-on-ubuntu-vps)
+- [Use Cases](#-use-cases--simulations)
+- [Key Configuration](#️-key-configuration)
+- [Troubleshooting](#-troubleshooting)
+- [Results](#-results)
 
+  
 ![GitHub repo size](https://img.shields.io/github/repo-size/zeyn0-9/Integrated-Mini--Soc)
 ![Last Commit](https://img.shields.io/github/last-commit/zeyn0-9/Integrated-Mini--Soc)
 ![License](https://img.shields.io/badge/license-MIT-blue)
