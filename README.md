@@ -83,14 +83,15 @@ The **Integrated Mini-SOC Ecosystem** is a fully functional, production-grade Se
 ## ⚙️ Key Configuration
 
 ### JVM Heap Tuning (Elasticsearch on 12GB RAM)
-```bash
+bash
 # /etc/elasticsearch/jvm.options.d/memory.options
 -Xms4g
 -Xmx4g
-```
+
 
 ### Fleet Server Enrollment
-```bash
+
+bash
 sudo elastic-agent enroll \
   --url=https://VPS_IP:8220 \
   --fleet-server-es=https://localhost:9200 \
@@ -98,24 +99,24 @@ sudo elastic-agent enroll \
   --fleet-server-service-token=YOUR_TOKEN \
   --fleet-server-policy=fleet-server-policy \
   --fleet-server-timeout=10m
-```
+
 
 ### Elastic Agent — Linux Endpoint
-```bash
+bash
 curl -L -O https://artifacts.elastic.co/downloads/beats/elastic-agent/elastic-agent-8.19.15-linux-x86_64.tar.gz
 tar xzvf elastic-agent-8.19.15-linux-x86_64.tar.gz
 cd elastic-agent-8.19.15-linux-x86_64
 sudo ./elastic-agent install \
   --url=https://VPS_IP:8220 \
   --enrollment-token=YOUR_TOKEN
-```
+
 
 ### Elastic Agent — Windows Endpoint
-```powershell
+powershell
 .\elastic-agent.exe install `
   --url=https://VPS_IP:8220 `
   --enrollment-token=YOUR_TOKEN
-```
+
 <img width="896" height="311" alt="Fleet Server & windows Vm + Ubuntu Vm are Healty" src="https://github.com/user-attachments/assets/cd748966-121c-47a0-bd03-98f01a9e90e1" />
 
 ---
