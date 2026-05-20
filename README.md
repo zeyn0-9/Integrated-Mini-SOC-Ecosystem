@@ -30,7 +30,7 @@
 | Adham Hany Mohamed | Infrastructure & SIEM Lead |
 | Ahmed Mokhtar Helmy | Detection Engineering |
 | Ibrahim Hussien Ibrahim | Endpoint Security & EDR |
-| Zeinab Ahmed Abdelhamid | Incident Response & Documentation |
+| Zeynep Ahmed Apd El Hamied | Incident Response & Documentation |
 
 **Track:** Infrastructure & Security (Information Security Analyst)
 
