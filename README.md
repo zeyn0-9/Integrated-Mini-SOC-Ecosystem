@@ -297,41 +297,6 @@ All agents should display a **Healthy** status ✅
 -Xmx4g
 ```
 
-### Fleet Server Enrollment
-
-```bash
-sudo elastic-agent enroll \
-  --url=https://VPS_IP:8220 \
-  --fleet-server-es=https://localhost:9200 \
-  --fleet-server-es-ca-trusted-fingerprint=YOUR_FINGERPRINT \
-  --fleet-server-service-token=YOUR_TOKEN \
-  --fleet-server-policy=fleet-server-policy \
-  --fleet-server-timeout=10m
-```
-
-### Elastic Agent — Linux Endpoint
-
-```bash
-curl -L -O https://artifacts.elastic.co/downloads/beats/elastic-agent/elastic-agent-8.19.15-linux-x86_64.tar.gz
-tar xzvf elastic-agent-8.19.15-linux-x86_64.tar.gz
-cd elastic-agent-8.19.15-linux-x86_64
-sudo ./elastic-agent install \
-  --url=https://VPS_IP:8220 \
-  --enrollment-token=YOUR_TOKEN
-```
-
-### Elastic Agent — Windows Endpoint
-
-```powershell
-.\elastic-agent.exe install `
-  --url=https://VPS_IP:8220 `
-  --enrollment-token=YOUR_TOKEN
-```
-
-<img width="636" height="280" alt="image" src="https://github.com/user-attachments/assets/bb2617cb-009f-4657-a805-e0f8e4241721" />
-
----
-
 ## 🚨 Use Cases & Simulations
 
 ### 1. Brute Force Detection
