@@ -322,11 +322,11 @@ sudo ./elastic-agent install \
 
 ### Elastic Agent — Windows Endpoint
 
-```powershell
+powershell
 .\elastic-agent.exe install `
   --url=https://VPS_IP:8220 `
   --enrollment-token=YOUR_TOKEN
-```
+
 
 <img width="896" height="311" alt="Fleet Server & Windows VM + Ubuntu VM are Healthy" src="https://github.com/user-attachments/assets/cd748966-121c-47a0-bd0398f01a9e90e1" />
 
