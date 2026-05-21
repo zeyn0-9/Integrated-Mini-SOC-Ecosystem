@@ -247,7 +247,7 @@ sudo elastic-agent enroll \
 
 #### Windows
 
-```powershell
+powershell
 $ProgressPreference = 'SilentlyContinue'
 Invoke-WebRequest -Uri https://artifacts.elastic.co/downloads/beats/elastic-agent/elastic-agent-8.19.15-windows-x86_64.zip `
   -OutFile elastic-agent-8.19.15-windows-x86_64.zip
@@ -256,7 +256,7 @@ cd elastic-agent-8.19.15-windows-x86_64
 .\elastic-agent.exe install `
   --url=https://YOUR_VPS_IP:8220 `
   --enrollment-token=YOUR_TOKEN
-```
+
 
 <img width="664" height="222" alt="Windows Agent Install" src="https://github.com/user-attachments/assets/b87ef82c-97b2-412c-bd02-5c2fcbd15620" />
 
