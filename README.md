@@ -362,12 +362,11 @@ MITRE:   T1110.004 (Brute Force: Credential Stuffing)
 
 ### 3. SQL Injection Attempt ✅ (Real Attack Detected)
 
-```
+
 Attack:  SQL Injection Attempt on OWASP Juice Shop
 Alert:   High severity — 2 alerts triggered
 Host:    ubuntu-dmz
 MITRE:   T1190 (Exploit Public-Facing Application)
-```
 
 <img width="831" height="350" alt="SQL Injection Alert" src="https://github.com/user-attachments/assets/fdf7f1dd-18f3-46bd-8a2e-ba2209b5f8e6" />
 
