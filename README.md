@@ -29,8 +29,8 @@
 |------|------|
 | Adham Hany Mohamed | Infrastructure & SIEM Lead |
 | Ahmed Mokhtar Helmy | Detection Engineering |
-| Ibrahim Hussien Ibrahim | Endpoint Security & EDR |
-| Zeynep Ahmed Apd El Hamied | Incident Response & Documentation |
+| Ibrahim Hussein Ibrahim | Endpoint Security & EDR |
+| Zeynep Ahmed Abd El Hamied | Incident Response & Documentation |
 
 **Track:** Infrastructure & Security (Information Security Analyst)
 
@@ -38,7 +38,7 @@
 
 ## 📌 Project Overview
 
-The **Integrated Mini-SOC Ecosystem** is a fully functional, production-grade Security Operations Center built entirely on open-source and cloud-based technologies. It simulates real-world enterprise SOC operations including:
+The **Integrated Mini-SOC Ecosystem** is a fully functional, production-grade Security Operations Center built entirely on open-source and cloud-based technologies. It simulates real-world enterprise SOC operations, including:
 
 - ✅ Centralized log collection from Windows, Linux, and network sources
 - ✅ Real-time threat detection mapped to MITRE ATT&CK
@@ -81,14 +81,14 @@ The **Integrated Mini-SOC Ecosystem** is a fully functional, production-grade Se
 | T1021 | Remote Services | Network + SMB Logs |
 | T1078.002 | Domain Accounts | Security Event Logs |
 | T1098 | Account Manipulation | AD Logs (4728, 4732) |
-| T1190 | Exploit Public-Facing Application | WAF + App Logs |
+| T1190 | Exploit Public-Facing Application | WAF + Application Logs |
 | T1110.004 | Brute Force: Credential Stuffing | SSH Logs |
 
 ---
 
 ## 🚀 ELK Stack Deployment on Ubuntu VPS
 
-> Deployed on **Contabo VPS** — Ubuntu 22.04 LTS | 12GB RAM | 200GB Storage
+> Deployed on **Contabo VPS** — Ubuntu 22.04 LTS | 12 GB RAM | 200 GB Storage
 
 ### 📋 Prerequisites
 
@@ -118,7 +118,7 @@ sudo apt update && sudo apt install elasticsearch -y
 
 <img width="477" height="108" alt="Elasticsearch Installation" src="https://github.com/user-attachments/assets/c1d7f70f-4ed5-422a-ad55-80d04e3093ab" />
 
-### JVM Heap Tuning (Critical for 12GB RAM)
+### JVM Heap Tuning (Critical for 12 GB RAM)
 
 ```bash
 sudo nano /etc/elasticsearch/jvm.options.d/memory.options
@@ -246,8 +246,8 @@ sudo elastic-agent enroll \
 ### 5️⃣ Install Elastic Agent on Endpoints
 
 #### Windows
-```
-powershell
+
+```powershell
 $ProgressPreference = 'SilentlyContinue'
 Invoke-WebRequest -Uri https://artifacts.elastic.co/downloads/beats/elastic-agent/elastic-agent-8.19.15-windows-x86_64.zip `
   -OutFile elastic-agent-8.19.15-windows-x86_64.zip
@@ -283,13 +283,13 @@ Kibana → Management → Fleet → Agents
 
 <img width="636" height="279" alt="Fleet Agents Healthy" src="https://github.com/user-attachments/assets/8d68f79d-20ed-48f1-8ace-12737b7856e2" />
 
-All agents should show **Healthy** status ✅
+All agents should display a **Healthy** status ✅
 
 ---
 
 ## ⚙️ Key Configuration
 
-### JVM Heap Tuning (Elasticsearch on 12GB RAM)
+### JVM Heap Tuning (Elasticsearch on 12 GB RAM)
 
 ```bash
 # /etc/elasticsearch/jvm.options.d/memory.options
@@ -321,8 +321,8 @@ sudo ./elastic-agent install \
 ```
 
 ### Elastic Agent — Windows Endpoint
-```
-powershell
+
+```powershell
 .\elastic-agent.exe install `
   --url=https://VPS_IP:8220 `
   --enrollment-token=YOUR_TOKEN
@@ -338,7 +338,7 @@ powershell
 
 ```
 Attack:  hydra / failed login attempts → Event ID 4625
-Alert:   5+ failed logins from same IP in 1 minute
+Alert:   5+ failed logins from the same IP within 1 minute
 MITRE:   T1110
 ```
 
@@ -362,11 +362,12 @@ MITRE:   T1110.004 (Brute Force: Credential Stuffing)
 
 ### 3. SQL Injection Attempt ✅ (Real Attack Detected)
 
-
-Attack:  SQL Injection Attempt on OWASP Juice Shop
+```
+Attack:  SQL Injection attempt on OWASP Juice Shop
 Alert:   High severity — 2 alerts triggered
 Host:    ubuntu-dmz
 MITRE:   T1190 (Exploit Public-Facing Application)
+```
 
 <img width="831" height="350" alt="SQL Injection Alert" src="https://github.com/user-attachments/assets/fdf7f1dd-18f3-46bd-8a2e-ba2209b5f8e6" />
 
@@ -437,8 +438,8 @@ Integrated-Mini-SOC-Ecosystem/
 
 ## 📊 Results
 
-- ✅ **4 Agents** enrolled and Healthy (DC + Win11 + Ubuntu + Fleet Server)
-- ✅ **Real-time log ingestion** from Windows Event Logs, AD, Linux syslog
+- ✅ **4 agents** enrolled and healthy (DC + Win11 + Ubuntu + Fleet Server)
+- ✅ **Real-time log ingestion** from Windows Event Logs, AD, and Linux syslog
 - ✅ **Custom detection rules** mapped to MITRE ATT&CK
 - ✅ **Elastic Defend EDR** active on all endpoints
 - ✅ **TLS-secured** communication between all agents and Fleet Server
